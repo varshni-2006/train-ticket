@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Train Ticket Booking</title>
+</head>
+<body>
+    <h2>Book Your Train Ticket</h2>
+    <form id="bookingForm">
+        <input type="text" id="name" placeholder="Name" required>
+        <input type="text" id="trainNumber" placeholder="Train Number" required>
+        <input type="date" id="date" required>
+        <button type="submit">Book Ticket</button>
+    </form>
+    <script>
+        document.getElementById("bookingForm").addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const response = await fetch("http://localhost:3000/book", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: document.getElementById("name").value,
+                    trainNumber: document.getElementById("trainNumber").value,
+                    date: document.getElementById("date").value
+                })
+            });
+            alert(await response.text());
+        });
+    </script>
+</body>
+</html>
