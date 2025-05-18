@@ -1,0 +1,66 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+struct Ticket {
+    string name;
+    string trainNumber;
+    string date;
+};
+
+void bookTicket() {
+    Ticket ticket;
+    cout << "Enter Name: ";
+    cin >> ticket.name;
+    cout << "Enter Train Number: ";
+    cin >> ticket.trainNumber;
+    cout << "Enter Date (YYYY-MM-DD): ";
+    cin >> ticket.date;
+
+    ofstream file("tickets.txt", ios::app);
+    file << ticket.name << "," << ticket.trainNumber << "," << ticket.date << endl;
+    file.close();
+
+    cout << "Ticket booked successfully!\n";
+}
+
+void viewTickets() {
+    ifstream file("tickets.txt");
+    string line;
+    
+    cout << "Booked Tickets:\n";
+    while (getline(file, line)) {
+        cout << line << endl;
+    }
+    file.close();
+}
+
+int main() {
+    int choice;
+    do {
+        cout << "\nTrain Ticket Booking System\n";
+        cout << "1. Book Ticket\n";
+        cout << "2. View Tickets\n";
+        cout << "3. Exit\n";
+        cout << "Enter choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                bookTicket();
+                break;
+            case 2:
+                viewTickets();
+                break;
+            case 3:
+                cout << "Exiting...\n";
+                break;
+            default:
+                cout << "Invalid choice, try again.\n";
+        }
+    } while (choice != 3);
+
+    return 0;
+}
